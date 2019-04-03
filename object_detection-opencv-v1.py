@@ -1,11 +1,6 @@
 import numpy as np
 import argparse
 import cv2
-# import sys
-# print("> Imported all modules.")
-
-# if len(sys.argv)==0:
-#     print("X Missing arguments...")
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required=True,
@@ -39,11 +34,10 @@ print("> Calculating confidence levels...")
 for i in np.arange(0, detections.shape[2]):
 	confidence = detections[0, 0, i, 2]
 	if confidence > args["confidence"]:
-        # j += 1
+		j += 1
 		idx = int(detections[0, 0, i, 1])
 		box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
 		(startX, startY, endX, endY) = box.astype("int")
-
 		label = "{}: {:.2f}%".format(CLASSES[idx], confidence * 100)
 		print("> Object {}: {}".format(j, label.capitalize()))
 		cv2.rectangle(image, (startX, startY), (endX, endY),
